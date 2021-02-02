@@ -7,11 +7,12 @@
   padding: 10px;
 }
 
-.dialog {
-
+.dialog a{
+  color: #000;
+  text-decoration: none;
 }
 
-.dialog.active {
+.dialog a.active {
   color: gold;
 }
 
