@@ -1,4 +1,7 @@
-import { rerenderEntireTree } from './../render.js';
+// эта функция вызывается, когда меняется state
+let rerenderEntireTree = () => {
+  console.log('State is changed');
+}
 
 let state = {
   profilePage: {
@@ -31,16 +34,21 @@ let state = {
 
 window.state = state;
 
-export let addPost = () => {
+export const addPost = () => {
   let newPost = {id: 5, message: state.profilePage.newPostText, likesCount: 0};
   state.profilePage.posts.push(newPost);
   state.profilePage.newPostText = '';
   rerenderEntireTree(state);
 }
 
-export let updateNewPostText = (newText) => {
+export const updateNewPostText = (newText) => {
   state.profilePage.newPostText = newText;
   rerenderEntireTree(state);
+};
+
+export const subscribe = (observer) => {
+  // переопределяем rerenderEntireTree что наверху
+  rerenderEntireTree(observer);
 };
 
 export default state;
