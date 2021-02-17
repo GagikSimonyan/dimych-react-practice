@@ -5,25 +5,18 @@ import userPhoto from './../../assets/images/biggie.jpg';
 
 const Users = (props) => {
 
-  if (props.users.length === 0) {
-
-    axios.get('https://social-network.samuraijs.com/api/1.0/users').then(responce => {
-      props.setUsers(responce.data.items);
-    });
-
-    // props.setUsers([
-    //   { id: 1, photoUrl: 'https://i1.sndcdn.com/artworks-000122978276-wfah7k-t500x500.jpg', followed: 'false', fullName: "Dimych", 
-    //     status: "I am a boss", location: {city: 'Minsk', country: 'Belarus'} },
-    //   { id: 2, photoUrl: 'https://i1.sndcdn.com/artworks-000122978276-wfah7k-t500x500.jpg', followed: 'true', fullName: "Gago", 
-    //     status: "I am a developer", location: {city: 'Yerevan', country: 'Armenia'} },
-    //   { id: 3, photoUrl: 'https://i1.sndcdn.com/artworks-000122978276-wfah7k-t500x500.jpg', followed: 'false', fullName: "Arturik", 
-    //     status: "I am a beatmaker", location: {city: 'Garni', country: 'Armenia'} },
-    // ]);
+  let getUSers = () => {
+    if (props.users.length === 0) {
+      axios.get('https://social-network.samuraijs.com/api/1.0/users').then(responce => {
+        props.setUsers(responce.data.items);
+      });
+    }
   }
 
 
   return ( 
     <div>
+      <button onClick={getUSers}>Get Users</button>
       {
         props.users.map((u) => {
 
