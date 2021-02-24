@@ -13,8 +13,8 @@ class ProfileContainer extends React.Component {
       userId = 2;
     }
     axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-    .then(responce => {
-      this.props.setUserProfile(responce.data);
+    .then(response => {
+      this.props.setUserProfile(response.data);
     });
   }
 
