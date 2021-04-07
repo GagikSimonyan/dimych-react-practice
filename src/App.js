@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 import "./App.css";
 import HeaderContainer from "./components/Header/HeaderContainer.jsx";
 import Navbar from "./components/Navbar/Navbar.jsx";
@@ -7,9 +7,24 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer.jsx";
 import UsersContainer from "./components/Users/UsersContainer.jsx";
 import ProfileContainer from "./components/Profile/ProfileContainer.jsx";
 import LoginPage from './components/Login/Login.jsx';
+import {initializeApp} from './redux/appReducer.js';
+import { connect } from "react-redux";
+import { compose } from "redux";
+import Preloader from "./components/common/Preloader/Preloader";
 
-const App = () => {
-  return (
+
+class App extends React.Component {
+
+  componentDidMount() {
+    this.props.initializeApp();
+  }
+
+  render() {
+    if (!this.props.initialized) {
+      return <Preloader />;
+    }
+    
+    return (
       <div className="app-wrapper">
         <HeaderContainer />
         <Navbar />
@@ -20,7 +35,15 @@ const App = () => {
           <Route path='/login' render={() => <LoginPage />} />
         </div>
       </div>
-  );
+    );
+  }
 };
 
-export default App;
+let mapStateToProps = (state) => ({
+  initialized: state.app.initialized,
+})
+
+export default compose(
+  withRouter,
+  connect(mapStateToProps, {initializeApp})
+)(App);
